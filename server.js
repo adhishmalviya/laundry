@@ -5,8 +5,7 @@ const helmet = require("helmet");
 const compression = require("compression");
 
 const app = express();
-require("dotenv").config();
-const port = process.env.port || 3000;
+const port = process.env.PORT || 3000;
 const mongodburl =
   process.env.mongodburl ||
   "mongodb+srv://user:12345@cluster0.70k9n.gcp.mongodb.net/laundry?retryWrites=true&w=majority";
