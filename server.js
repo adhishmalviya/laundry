@@ -30,3 +30,7 @@ app.use("/book", require("./routes/pickup"));
 app.listen(port, () => {
   console.log(`server running on port ${port}`);
 });
+
+app.get("/", (req, res) => {
+  res.send("<h1>Project Running...<h1><h2>Roshan, Lalitha and Adhish<h2>");
+});
