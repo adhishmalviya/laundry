@@ -2,12 +2,21 @@ const express = require("express");
 const router = express.Router();
 const Shop = require("../models/laundryshop");
 const bcrypt = require("bcrypt");
-const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const auth = require("../middlewares/auth");
-//const multer = require("multer");
-//const salt =  bcrypt.genSalt(14)
+var fs = require("fs");
+var path = require("path");
+var multer = require("multer");
+var storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "uploads");
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.fieldname + "-" + Date.now());
+  },
+});
 
+var upload = multer({ storage: storage });
 router.get("/", (req, res) => {
   Shop.find()
     .then((result) => {
@@ -18,7 +27,7 @@ router.get("/", (req, res) => {
     });
 });
 
-router.post("/registershop", async (req, res) => {
+router.post("/registershop", upload.single("image"), async (req, res) => {
   let newShop = new Shop({
     name: req.body.name,
     email: req.body.email,
@@ -28,6 +37,12 @@ router.post("/registershop", async (req, res) => {
     price: req.body.price,
     OpeningTime: req.body.OpeningTime,
     ClosingTime: req.body.ClosingTime,
+    img: {
+      data: fs.readFileSync(
+        path.join(__dirname, "../", "/uploads/" + req.file.filename)
+      ),
+      contentType: "image/png",
+    },
     geometry: req.body.geometry,
   });
   const salt = await bcrypt.genSalt(14);
