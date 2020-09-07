@@ -1,49 +1,47 @@
-
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-
-
-const GeoSchema = new Schema({
-  type: {
-    type: String,
-    default: "Point",
-  },
-  coordinates: {
-    type: [Number],
-    index: "2dsphere",
-  },
-});
+// const GeoSchema = new Schema({
+//   type: {
+//     type: String,
+//     default: "Point",
+//   },
+//   coordinates: {
+//     type: [Number],
+//     index: "2dsphere",
+//   },
+// });
 
 const userSchema = new Schema({
   username: {
     type: String,
-    required: [true, "Name field is required"],
-    unique: true
+    // required: [true, "Name field is required"],
+    // unique: true
   },
-  email:{
+  email: {
     type: String,
-    required: true,
-    unique: true,
-    match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
+    // required: true,
+    // unique: true,
+    // match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
   },
   phoneNumber: {
     type: Number,
-    required: true,
-    match: /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/,
-    unique: true
+    // required: true,
+    // match: /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/,
+    // unique: true
   },
   password: {
-     type: String,
-     required: true,
+    type: String,
+    //  required: true,
   },
   role: {
     type: String,
-    default: "user"
+    default: "user",
   },
-  geometry: GeoSchema
+  geometry: {
+    type: Number,
+  },
+});
 
-  })
-
-   const Customer = mongoose.model("Customer", userSchema);
-  module.exports = Customer;
+const Customer = mongoose.model("Customer", userSchema);
+module.exports = Customer;

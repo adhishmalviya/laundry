@@ -2,65 +2,65 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 // Create Geolocation Schema
-const GeoSchema = new Schema({
-  type: {
-    type: String,
-    default: "Point",
-  },
-  coordinates: {
-    type: [Number],
-    index: "2dsphere",
-  },
-});
+// const GeoSchema = new Schema({
+//   type: {
+//     type: String,
+//     default: "Point",
+//   },
+//   coordinates: {
+//     type: [Number],
+//     index: "2dsphere",
+//   },
+// });
 
 const shopSchema = new Schema({
   name: {
     type: String,
-    required: true,
-    unique: true
+    // required: true,
+    // unique: true
   },
-  email:{
+  email: {
     type: String,
-    required: true,
-    unique: true,
-    match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
+    // required: true,
+    // unique: true,
+    // match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
   },
   phoneNumber: {
     type: Number,
-    required: true,
-    unique: true,
-    match: /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/
+    // required: true,
+    // unique: true,
+    // match: /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/
   },
   password: {
-     type: String,
-     required: true,
+    type: String,
+    //  required: true,
   },
   OpeningTime: {
     type: String,
-    required: true,
+    // required: true,
   },
   ClosingTime: {
-      type: String,
-    required: true,
-  },
-  price:{
     type: String,
-    required: true
+    // required: true,
   },
-  image:{
+  price: {
     type: String,
-    required: true
+    // required: true
   },
-  geometry: GeoSchema,
-   role:{
+  image: {
     type: String,
-    default: "store"
+    // required: true
   },
-  address:{
+  geometry: { type: Number },
+  role: {
     type: String,
-    required: true,
-    unique: true
-  }
+    default: "store",
+  },
+  address: {
+    type: String,
+    // required: true,
+    // unique: true,
+  },
 });
 
 const Shop = mongoose.model("Shop", shopSchema);

@@ -1,34 +1,33 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-
 const adminSchema = new Schema({
   username: {
     type: String,
-    required: [true, "Name field is required"],
-    unique: true
+    // required: [true, "Name field is required"],
+    // unique: true
   },
-  email:{
+  email: {
     type: String,
-    required: true,
-    unique: true,
-    match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
+    // required: true,
+    // unique: true,
+    // match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
   },
   phoneNumber: {
     type: Number,
-    required: true,
-    match: /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/,
-    unique: true
+    // required: true,
+    // match: /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/,
+    // unique: true
   },
   password: {
-     type: String,
-     required: true,
+    type: String,
+    //  required: true,
   },
   role: {
     type: String,
-    default: "admin"
-  }
-  })
+    default: "admin",
+  },
+});
 
-   const Admin = mongoose.model("Admin", adminSchema);
-  module.exports = Admin;
+const Admin = mongoose.model("Admin", adminSchema);
+module.exports = Admin;
