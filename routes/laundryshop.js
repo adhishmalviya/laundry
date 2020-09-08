@@ -12,7 +12,10 @@ var storage = multer.diskStorage({
     cb(null, "uploads");
   },
   filename: (req, file, cb) => {
-    cb(null, file.fieldname + "-" + Date.now());
+    cb(
+      null,
+      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
+    );
   },
 });
 
@@ -37,13 +40,14 @@ router.post("/registershop", upload.single("image"), async (req, res) => {
     price: req.body.price,
     OpeningTime: req.body.OpeningTime,
     ClosingTime: req.body.ClosingTime,
-    img: {
-      data: fs.readFileSync(
-        path.join(__dirname, "../", "/uploads/" + req.file.filename)
-      ),
-      contentType: "image/png",
-    },
-    geometry: req.body.geometry,
+    // img: {
+    //   data: fs.readFileSync(
+    //     path.join(__dirname, "../", "/uploads/" + req.file.filename)
+    //   ),
+    //   contentType: "image/png",
+    // },
+    imagename: req.file.filename,
+    geometry: { type: "Point", coordinates: [req.body.lat, req.body.lng] },
   });
   const salt = await bcrypt.genSalt(14);
   newShop.password = await bcrypt.hash(newShop.password, salt);

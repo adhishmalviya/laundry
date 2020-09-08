@@ -8,7 +8,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 const mongodburl =
   process.env.mongodburl ||
-  "mongodb+srv://user:12345@cluster0.70k9n.gcp.mongodb.net/laundry?retryWrites=true&w=majority";
+  "mongodb+srv://user:12345@cluster0.70k9n.gcp.mongodb.net/laundry1?retryWrites=true&w=majority";
 
 mongoose
   .connect(mongodburl, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -21,6 +21,8 @@ app.use(
     extended: false,
   })
 );
+// app.use(express.static("public"));
+app.use("/uploads", express.static(__dirname + "/uploads"));
 app.use(helmet());
 app.use(compression());
 app.use("/shops", require("./routes/laundryshop"));

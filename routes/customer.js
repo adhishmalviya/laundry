@@ -6,23 +6,6 @@ const Shop = require("../models/laundryshop");
 const jwt = require("jsonwebtoken");
 const auth = require("../middlewares/auth");
 
-router.get("/:myid", auth, (req, res) => {
-  const id = req.params.myid;
-  const customer = Customer.findById({ _id: id });
-  if ((req.customer = id)) {
-    const id = req.params.myid;
-    Customer.findById({ _id: id })
-      .then((result) => {
-        res.send(result);
-      })
-      .catch((err) => {
-        res.send(err);
-      });
-  } else {
-    res.json("permission denied");
-  }
-});
-
 router.post("/registercustomer", async (req, res) => {
   let newCustomer = new Customer({
     username: req.body.username,
@@ -110,10 +93,10 @@ router.get("/nearbyshops", function (req, res, next) {
       $geoNear: {
         near: {
           type: "Point",
-          coordinates: [parseFloat(req.query.lng), parseFloat(req.query.lat)],
+          coordinates: [parseFloat(req.query.lat), parseFloat(req.query.lng)],
         },
         spherical: true,
-        maxDistance: 100,
+        maxDistance: 1000000,
         distanceField: "dist.calculated",
       },
     },
