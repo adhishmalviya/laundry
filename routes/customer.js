@@ -12,7 +12,6 @@ router.post("/registercustomer", async (req, res) => {
     email: req.body.email,
     phoneNumber: req.body.phoneNumber,
     password: req.body.password,
-    geometry: req.body.geometry,
   });
   const salt = await bcrypt.genSalt(14);
   newCustomer.password = await bcrypt.hash(newCustomer.password, salt);
@@ -28,7 +27,7 @@ router.post("/registercustomer", async (req, res) => {
 });
 
 router.post("/logincustomer", (req, res) => {
-  Customer.find({ phoneNumber: req.body.phoneNumber })
+  Customer.findOne({ phoneNumber: req.body.phoneNumber })
     .exec()
     .then((user) => {
       if (user.length < 1) {
@@ -36,7 +35,7 @@ router.post("/logincustomer", (req, res) => {
           message: "Auth failed",
         });
       }
-      bcrypt.compare(req.body.password, user[0].password, (err, result) => {
+      bcrypt.compare(req.body.password, user.password, (err, result) => {
         if (err) {
           return res.status(401).json({
             message: "Auth failed",

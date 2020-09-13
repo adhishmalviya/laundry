@@ -1,7 +1,5 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const customer = require("../models/customer");
-const shop = require("../models/laundryshop");
 
 const pickupSchema = new Schema({
   customerId: {
