@@ -3,7 +3,7 @@ const bodyparser = require("body-parser");
 const mongoose = require("mongoose");
 const helmet = require("helmet");
 const compression = require("compression");
-// const cors = require("cors");
+const cors = require("cors");
 
 const app = express();
 const port = process.env.PORT || 3001;
@@ -17,7 +17,7 @@ mongoose
   .catch((err) => console.error(err));
 
 app.use(express.json());
-// app.use(cors());
+app.use(cors({ origin: "*" }));
 
 app.use(bodyparser.json());
 app.use(
