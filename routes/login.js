@@ -13,7 +13,8 @@ router.post("/", async (req, res) => {
   if (customer) {
     bcrypt.compare(req.body.password, customer.password, (err, result) => {
       if (result) {
-        res.send("Logged In, Customer");
+        const token = jwt.sign({ name: result.name, isUser: true }, "Adhish");
+        res.status(200).json({ token });
       } else {
         res.send("Wrong Password, Customer..");
       }
@@ -23,7 +24,8 @@ router.post("/", async (req, res) => {
   if (shop) {
     bcrypt.compare(req.body.password, shop.password, (err, result) => {
       if (result) {
-        res.send("You are a shop, Logged In");
+        const token = jwt.sign({ name: result.name, isShop: true }, "Adhish");
+        res.status(200).json({ token });
       } else {
         res.send("Wrong Password, Shop");
       }

@@ -19,7 +19,8 @@ router.post("/registercustomer", async (req, res) => {
   newCustomer
     .save()
     .then((result) => {
-      res.json(result);
+      const token = jwt.sign({ name: result.name, isUser: true }, "Adhish");
+      res.status(200).json({ token });
     })
     .catch((err) => {
       res.json(err);
