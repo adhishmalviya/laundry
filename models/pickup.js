@@ -2,21 +2,18 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const pickupSchema = new Schema({
-  customerId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "customer",
+  username: {
+    type: Stirng,
   },
   slot: {
     type: String,
-    // required: true,
   },
-  selectedstoreId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "shop",
+  storename: {
+    type: String,
   },
   paymentMode: {
     type: String,
-    default: "Cash On delivery",
+    default: "Cash On Delivery",
     // required: true,
   },
   isPaid: {

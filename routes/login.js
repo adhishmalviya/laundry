@@ -18,8 +18,10 @@ router.post("/", async (req, res) => {
           "Adhish"
         );
         res.status(200).json({ token });
+        return;
       } else {
         res.send("Wrong Password, Customer..");
+        return;
       }
     });
   }
@@ -30,8 +32,10 @@ router.post("/", async (req, res) => {
         const token = jwt.sign({ name: shop.name, isShop: true }, "Adhish");
         console.log(shop.name);
         res.status(200).json({ token });
+        return;
       } else {
         res.send("Wrong Password, Shop");
+        return;
       }
     });
   }
