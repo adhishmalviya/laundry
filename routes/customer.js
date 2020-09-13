@@ -15,11 +15,15 @@ router.post("/registercustomer", async (req, res) => {
   });
   const salt = await bcrypt.genSalt(14);
   newCustomer.password = await bcrypt.hash(newCustomer.password, salt);
-  newCustomer = await newCustomer.save();
+  // newCustomer = await newCustomer.save();
   newCustomer
     .save()
     .then((result) => {
-      const token = jwt.sign({ name: result.name, isUser: true }, "Adhish");
+      const token = jwt.sign(
+        { name: newCustomer.username, isUser: true },
+        "Adhish"
+      );
+      // console.log(newCustomer);
       res.status(200).json({ token });
     })
     .catch((err) => {

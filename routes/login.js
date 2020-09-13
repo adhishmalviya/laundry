@@ -13,7 +13,10 @@ router.post("/", async (req, res) => {
   if (customer) {
     bcrypt.compare(req.body.password, customer.password, (err, result) => {
       if (result) {
-        const token = jwt.sign({ name: result.name, isUser: true }, "Adhish");
+        const token = jwt.sign(
+          { name: customer.username, isUser: true },
+          "Adhish"
+        );
         res.status(200).json({ token });
       } else {
         res.send("Wrong Password, Customer..");
@@ -24,12 +27,15 @@ router.post("/", async (req, res) => {
   if (shop) {
     bcrypt.compare(req.body.password, shop.password, (err, result) => {
       if (result) {
-        const token = jwt.sign({ name: result.name, isShop: true }, "Adhish");
+        const token = jwt.sign({ name: shop.name, isShop: true }, "Adhish");
+        console.log(shop.name);
         res.status(200).json({ token });
       } else {
         res.send("Wrong Password, Shop");
       }
     });
   }
+
+  // res.send("Not Registered...");
 });
 module.exports = router;

@@ -52,11 +52,11 @@ router.post("/registershop", upload.single("image"), async (req, res) => {
   const salt = await bcrypt.genSalt(14);
   newShop.password = await bcrypt.hash(newShop.password, salt);
   // console.log("Register shop route is running..");
-  newShop = await newShop.save();
+  // newShop = await newShop.save();
   newShop
     .save()
     .then((result) => {
-      const token = jwt.sign({ name: result.name, isShop: true }, "Adhish");
+      const token = jwt.sign({ name: newShop.name, isShop: true }, "Adhish");
       res.status(200).json({ token });
     })
     .catch((err) => {
