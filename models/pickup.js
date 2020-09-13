@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const pickupSchema = new Schema({
   username: {
-    type: Stirng,
+    type: String,
   },
   slot: {
     type: String,
