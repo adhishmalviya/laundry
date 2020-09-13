@@ -49,8 +49,9 @@ router.post("/registershop", upload.single("image"), async (req, res) => {
     imagename: req.file.filename,
     geometry: { type: "Point", coordinates: [req.body.lat, req.body.lng] },
   });
-  const salt = await bcrypt.genSalt(14);
-  newShop.password = await bcrypt.hash(newShop.password, salt);
+  //const salt = await bcrypt.genSalt(14);
+  //newShop.password = await bcrypt.hash(newShop.password, salt);
+  console.log("HELLLLLLOOOOOOOOOOOOOOOOOOOO");
   newShop = await newShop.save();
   newShop
     .save()
