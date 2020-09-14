@@ -20,7 +20,7 @@ router.post("/registercustomer", async (req, res) => {
     .save()
     .then((result) => {
       const token = jwt.sign(
-        { name: newCustomer.username, isUser: true },
+        { name: newCustomer.username, isUser: true, email: newCustomer.email },
         "Adhish"
       );
       // console.log(newCustomer);
