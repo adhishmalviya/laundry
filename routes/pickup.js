@@ -1,23 +1,15 @@
 const express = require("express");
 const router = express.Router();
-const Shop = require("../models/laundryshop");
-const Customer = require("../models/customer");
-const Admin = require("../models/admin");
 const Pickup = require("../models/pickup");
-const bcrypt = require("bcrypt");
-const mongoose = require("mongoose");
-const jwt = require("jsonwebtoken");
-const auth = require("../middlewares/auth");
 
-router.post("/:customerId", auth, (req, res) => {
-  const id = req.params.customerId;
-  const customer = Customer.findById({ _id: id });
-  if ((req.customer = id)) {
+router.post("/add", (req, res) => {
     const newPickup = new Pickup({
-      customerId: req.params.customerId,
+      username: req.body.username,
       slot: req.body.slot,
       quantity: req.body.quantity,
-      selectedstoreId: req.body.selectedstoreId,
+      shopemail: req.body.shopemail,
+      useremail: req.body.useremail,
+      storename:req.body.storename,
       paymentMode: req.body.paymentmethod,
       isPaid: req.body.isPaid,
     });
@@ -30,70 +22,24 @@ router.post("/:customerId", auth, (req, res) => {
       .catch((err) => {
         res.json(err);
       });
-  } else {
-    res.send("permission denied");
-  }
-});
-
-router.put("/update/:myid", [auth], async (req, res) => {
-  const id = req.params.myid;
-  const pickup = Pickup.findById({ _id: id });
-  if ((req.pickup = id)) {
-    pickup.slot = req.body.slot;
-    pickup.quantity = req.body.quantity;
-    await pickup
-      .save()
-      .then((result) => {
-        res.send(result);
-      })
-      .catch((err) => {
-        res.send(err);
-      });
-  } else {
-    res.send("not found");
-  }
-});
-
-//for shop
-router.get("/:shopname", auth, (req, res) => {
-  const shop = Shop.find({ shopname: shopname }, function (err, docs) {
-    if (docs) {
-      res.send(docs);
-    }
-    if (err) {
-      res.status(400).send(err);
-    }
   });
-});
 
-router.delete("/:myid", auth, (req, res) => {
-  const id = req.params.myid;
-  const pickup = Pickup.findById({ _id: id });
-  if ((req.pickup = id)) {
-    Pickup.remove({ id: req.body.id })
-      .then((result) => {
-        res.json({
-          status: "deleted succesfully",
-          result: result,
-        });
-      })
-      .catch((err) => {
-        res.json(err);
-      });
-  } else {
-    res.json("permission denied");
-  }
-});
+router.get("/",(req,res)=>{
+  let find = Pickup.find({shopemail:req.query.shopemail}).then(result=>{
+    res.send(result);
+  }).catch(err=>{
+    res.send(err);
+  })
 
-router.get("/:id", (req, res) => {
-  const id = req.params.id;
-  Pickup.findById({ _id: id })
-    .then((result) => {
-      res.send(result);
-    })
-    .catch((err) => {
-      res.send(err);
-    });
-});
+})
+
+router.get("/",(req,res)=>{
+  let find = Pickup.find({useremail:req.query.useremail}).then(result=>{
+    res.send(result);
+  }).catch(err=>{
+    res.send(err);
+  })
+
+})
 
 module.exports = router;

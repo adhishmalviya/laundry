@@ -11,6 +11,12 @@ const pickupSchema = new Schema({
   storename: {
     type: String,
   },
+  shopemail: {
+    type: String,
+  },
+  useremail: {
+    type: String,
+  },
   paymentMode: {
     type: String,
     default: "Cash On Delivery",
