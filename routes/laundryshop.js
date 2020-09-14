@@ -56,7 +56,10 @@ router.post("/registershop", upload.single("image"), async (req, res) => {
   newShop
     .save()
     .then((result) => {
-      const token = jwt.sign({ name: newShop.name, isShop: true }, "Adhish");
+      const token = jwt.sign(
+        { name: newShop.name, isShop: true, email: newShop.email },
+        "Adhish"
+      );
       res.status(200).json({ token });
     })
     .catch((err) => {

@@ -29,7 +29,10 @@ router.post("/", async (req, res) => {
   if (shop) {
     bcrypt.compare(req.body.password, shop.password, (err, result) => {
       if (result) {
-        const token = jwt.sign({ name: shop.name, isShop: true }, "Adhish");
+        const token = jwt.sign(
+          { name: shop.name, isShop: true, email: shop.email },
+          "Adhish"
+        );
         console.log(shop.name);
         res.status(200).json({ token });
         return;
