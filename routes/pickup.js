@@ -33,7 +33,7 @@ router.get("/",(req,res)=>{
 
 })
 
-router.get("/",(req,res)=>{
+router.get("/user",(req,res)=>{
   let find = Pickup.find({useremail:req.query.useremail}).then(result=>{
     res.send(result);
   }).catch(err=>{
