@@ -1,5 +1,6 @@
 const stripe = require("stripe")(process.env.KEY);
 const uuid = require("uuid");
+const express = require("express");
 const router = express.Router();
 
 router.post("/payment", (req, res) => {
@@ -34,4 +35,4 @@ router.post("/payment", (req, res) => {
     .then((result) => res.status(200).json(result))
     .catch((err) => console.log(err));
 });
-module.export = router;
+module.exports = router;
